@@ -15,7 +15,10 @@ function updateFeature(elementId = 'feature-blog-component', pageQueryParam = '0
   }
 }
 
-export function handleFeatureVisibility() {
+export function handleFeatureVisibility(
+  elementId = 'feature-blog-component',
+  pageQueryParam = '0a0a5105_page'
+) {
   // calls handleShowFeature() when list is paginated with CMS Load
   window.fsAttributes = window.fsAttributes || [];
   window.fsAttributes.push([
@@ -23,11 +26,11 @@ export function handleFeatureVisibility() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (listInstances: any[]) => {
       const [listInstance] = listInstances;
-      updateFeature();
+      updateFeature(elementId, pageQueryParam);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
       listInstance.on('renderitems', (renderedItems: any[]) => {
-        updateFeature();
+        updateFeature(elementId, pageQueryParam);
         window.scrollTo(0, 0);
       });
     },
