@@ -338,8 +338,6 @@ function successRedirect(values, followUpUrl, $form) {
   return false;
 }
 
-console.log('execute');
-
 // Load Marketo forms
 document.addEventListener('DOMContentLoaded', function () {
   $(function () {
@@ -348,5 +346,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-
-console.log('end');
