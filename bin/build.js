@@ -12,6 +12,7 @@ const ENTRY_POINTS = [
   'src/webinars/index.ts',
   'src/reports/index.ts',
   'src/resources/ebooks/index.ts',
+  'src/global/index.ts',
 ];
 
 // Config dev serving
@@ -24,7 +25,7 @@ const context = await esbuild.context({
   bundle: true,
   entryPoints: ENTRY_POINTS,
   outdir: BUILD_DIRECTORY,
-  minify: PRODUCTION,
+  minify: false,
   sourcemap: !PRODUCTION,
   target: PRODUCTION ? 'es2020' : 'esnext',
   inject: LIVE_RELOAD ? ['./bin/live-reload.js'] : undefined,

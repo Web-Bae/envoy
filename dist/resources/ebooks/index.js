@@ -1,1 +1,40 @@
-"use strict";(()=>{function r(e="feature-blog-component",t="0a0a5105_page"){let n=new URLSearchParams(window.location.search).get(t),o=document.querySelector(`#${e}`);if(!o){console.error("Error getting feature element");return}n&&parseInt(n,10)>1?o.style.display="none":o.style.display="block"}function s(e="feature-blog-component",t="0a0a5105_page"){window.fsAttributes=window.fsAttributes||[],window.fsAttributes.push(["cmsload",a=>{let[n]=a;r(e,t),n.on("renderitems",o=>{r(e,t),window.scrollTo(0,0)})}])}s("feature-blog-component","1b9f6564_page");})();
+"use strict";
+(() => {
+  // bin/live-reload.js
+  new EventSource(`${"http://localhost:3000"}/esbuild`).addEventListener("change", () => location.reload());
+
+  // src/utils/handleFeatureVisibility.ts
+  function updateFeature(elementId = "feature-blog-component", pageQueryParam = "0a0a5105_page") {
+    const params = new URLSearchParams(window.location.search);
+    const pageValue = params.get(pageQueryParam);
+    const featureEl = document.querySelector(`#${elementId}`);
+    if (!featureEl) {
+      console.error("Error getting feature element");
+      return;
+    }
+    if (pageValue && parseInt(pageValue, 10) > 1) {
+      featureEl.style.display = "none";
+    } else {
+      featureEl.style.display = "block";
+    }
+  }
+  function handleFeatureVisibility(elementId = "feature-blog-component", pageQueryParam = "0a0a5105_page") {
+    window.fsAttributes = window.fsAttributes || [];
+    window.fsAttributes.push([
+      "cmsload",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (listInstances) => {
+        const [listInstance] = listInstances;
+        updateFeature(elementId, pageQueryParam);
+        listInstance.on("renderitems", (renderedItems) => {
+          updateFeature(elementId, pageQueryParam);
+          window.scrollTo(0, 0);
+        });
+      }
+    ]);
+  }
+
+  // src/resources/ebooks/index.ts
+  handleFeatureVisibility("feature-blog-component", "1b9f6564_page");
+})();
+//# sourceMappingURL=index.js.map
